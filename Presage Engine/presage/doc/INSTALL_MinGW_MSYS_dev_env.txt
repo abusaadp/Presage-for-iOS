@@ -1,0 +1,107 @@
+Copyright (C) 2008  Matteo Vescovi <matteo.vescovi@yahoo.co.uk>
+___________________
+The Presage project
+~~~~~~~~~~~~~~~~~~~
+
+Building Presage on MinGW/MSYS 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following steps will enable your system to build and execute
+presage in native Win32 mode.
+
+
+__________________
+Install MinGW/MSYS
+~~~~~~~~~~~~~~~~~~
+
+Download the current Automated MinGW installer and install the
+following components:
+
+MinGW Compiler Suite
+    C Compiler
+    C++ Compiler
+MSYS Basic System
+
+[Last tested with MinGW/MSYS 20110530]
+
+
+______________
+Install Python
+~~~~~~~~~~~~~~
+
+Install using Python Windows Installer. No special notes here, just
+click next.
+
+
+________________
+Install wxPython
+~~~~~~~~~~~~~~~~
+
+Install using wxPython runtime installer matching the installed Python
+version.  Just click next, and make sure that site-packages directory
+the installer picks up is correct.
+
+
+____________
+Install SWIG
+~~~~~~~~~~~~
+
+Install SWIG for Windows by simply unzipping it.
+
+
+___________
+Install GTK
+~~~~~~~~~~~
+
+Install GTK for Windows by simply unzipping the all-in-one bundle.
+
+
+_____________
+Build SQLite3
+~~~~~~~~~~~~~
+
+Get the SQLite3 amalgamation source distribution and untar it.
+
+Start the MSYS console and change into the SQLite3 source directory.
+
+Configure, build, and install:
+    ./configure --prefix=/mingw
+    make
+    make install
+
+
+_____________
+Build presage
+~~~~~~~~~~~~~
+
+Start MSYS console
+
+Extract and configure presage, taking care of specifying where to
+find required binaries (Python and SWIG), headers, and libraries:
+
+  PATH=/c/gtk/bin:/c/Python27:/c/SWIG:$PATH \
+  CPPFLAGS="-I/c/Python27/include" \
+  ./configure --prefix=/c/presage
+ 
+
+
+
+########/
+
+Copyright (C) 2008  Matteo Vescovi <matteo.vescovi@yahoo.co.uk>
+
+Presage is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+########\

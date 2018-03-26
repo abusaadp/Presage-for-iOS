@@ -1,0 +1,55 @@
+PRESAGE_0.8.3 {
+global:
+	extern "C++" {
+	       Presage::*Presage*;
+	       Presage::predict*;
+	       Presage::callback*;
+	       Presage::completion*;
+	       Presage::context*;
+	       Presage::context_change*;
+	       Presage::prefix*;
+	       Presage::config*;
+	       Presage::save_config*;
+	       PresageException::*PresageException*;
+	       PresageException::what*;
+	       typeinfo*PresageException;
+	       vtable*PresageException;
+	};
+local:
+	*;
+};
+
+PRESAGE_0.8.5 {
+global:
+	presage_completion;
+	presage_config;
+	presage_config_set;
+	presage_context;
+	presage_context_change;
+	presage_free;
+	presage_free_string;
+	presage_free_string_array;
+	presage_new;
+	presage_new_with_config;
+	presage_predict;
+	presage_prefix;
+	presage_save_config;
+} PRESAGE_0.8.3;
+
+PRESAGE_0.9.1 {
+global:
+	extern "C++" {
+		Presage::learn*;
+	};
+	presage_learn;
+} PRESAGE_0.8.5;
+
+PRESAGE_0.9.2 {
+global:
+	extern "C++" {
+		Presage::version*;
+	};
+	presage_version;
+	presage_predict_with_filter;
+	presage_free_prediction;
+} PRESAGE_0.9.1;
