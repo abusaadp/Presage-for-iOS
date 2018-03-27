@@ -216,7 +216,7 @@ private:
     std::string controlChars;
 
     bool lowercase_mode;
-    bool online_learning;
+    bool online_learning = false;
 
     // REVISIT: this was removed since a tokenizer is created with
     // each method invocation that needs it

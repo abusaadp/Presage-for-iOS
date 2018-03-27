@@ -130,7 +130,7 @@ void DefaultProfile::build_xml_document (const std::string& filename)
 "                  - $HOME on Unix"
 "                  - %USERPROFILE% on Windows"
 "              -->"
-"            <DBFILENAME>${HOME}/.presage/lm.db</DBFILENAME>"
+"            <DBFILENAME>" pkgdatadir "/lm.db</DBFILENAME>"
 "            <!-- delta_0, delta_1, ..., delta_{n-1} -->"
 "            <DELTAS>0.01 0.1 0.89</DELTAS>"
 "            <COUNT_THRESHOLD>0</COUNT_THRESHOLD>"

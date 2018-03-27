@@ -25,7 +25,7 @@
 #include "predictorRegistry.h"
 
 
-# include "smoothedNgramPredictor.h"
+#include "smoothedNgramPredictor.h"
 #include "../predictors/ARPAPredictor.h"
 #include "../predictors/abbreviationExpansionPredictor.h"
 #include "../predictors/dummyPredictor.h"
@@ -157,12 +157,10 @@ void PredictorRegistry::addPredictor(const std::string& predictorName)
 	else if (predictor_class == "DictionaryPredictor" )
 	{
 	    predictor = new DictionaryPredictor(config, contextTracker, name);
-#ifdef USE_SQLITE
 	}
 	else if (predictor_class == "SmoothedNgramPredictor") 
 	{
 	    predictor = new SmoothedNgramPredictor(config, contextTracker, name);
-#endif
 	}
 	else if (predictor_class == "RecencyPredictor") 
 	{

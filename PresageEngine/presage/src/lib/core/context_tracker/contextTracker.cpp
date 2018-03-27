@@ -74,7 +74,7 @@ ContextTracker::ContextTracker(Configuration* config,
     dispatcher.map (config->find (LOGGER), & ContextTracker::set_logger);
     dispatcher.map (config->find (SLIDING_WINDOW_SIZE), & ContextTracker::set_sliding_window_size);
     dispatcher.map (config->find (LOWERCASE_MODE), & ContextTracker::set_lowercase_mode);
-    dispatcher.map (config->find (ONLINE_LEARNING), & ContextTracker::set_online_learning);
+    //dispatcher.map (config->find (ONLINE_LEARNING), & ContextTracker::set_online_learning);
 }
 
 ContextTracker::~ContextTracker()
