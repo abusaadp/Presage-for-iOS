@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
-    
+class ViewController: UIViewController, UITextFieldDelegate, PredictionBarDelegate {
+
     @IBOutlet weak var txtField: UITextField!
     var bar:PredictionBar!
     var predictor: ObjCPresageHelper?
@@ -74,7 +74,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         UIView.commitAnimations()
     }
     
-    
+    func predictionBar(predictionBar: PredictionBar, didSelectPrediction: String) {
+        let myStringWithoutLastWord = txtField.text?.components(separatedBy: " ").dropLast().joined(separator: " ")
+        txtField.text = myStringWithoutLastWord! + " " + didSelectPrediction
+    }
 
 }
 

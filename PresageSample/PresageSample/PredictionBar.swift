@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol PredictionBarDelegate:class{
-    func predictionBar(predictionBar:PredictionBar, didSelectPrediction:NSString)
+    func predictionBar(predictionBar:PredictionBar, didSelectPrediction:String)
 
 }
 
@@ -65,8 +65,8 @@ class PredictionBar : UIView {
                 label.layer.borderColor = UIColor.init(red: 173.0/255.0, green: 173.0/255.0, blue: 171.0/255, alpha: 0.9).cgColor
                 label.layer.borderWidth = 1.0
                 label.textAlignment = NSTextAlignment.center
-                label.isUserInteractionEnabled = false
-                let tapGesture = UITapGestureRecognizer.init(target: self, action: Selector(("handleTap")))
+                label.isUserInteractionEnabled = true
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
                 label.addGestureRecognizer(tapGesture)
                 _predictionLabels.add(label)
             }
@@ -105,13 +105,13 @@ class PredictionBar : UIView {
         }
     }
 
-    func handleTap(sender:UITapGestureRecognizer) {
+    @objc func handleTap(sender:UITapGestureRecognizer) {
         if (sender.state == UIGestureRecognizerState.ended) {
             let loc:CGPoint = sender.location(in: self)
             let label:UILabel = self.hitTest(loc, with: nil) as! UILabel
-            print("Prediction tapped: %@", label.text ?? "");
+            print("Prediction tapped: ", label.text ?? "");
 
-            delegate?.predictionBar(predictionBar: self, didSelectPrediction: label.text! as NSString)
+            delegate?.predictionBar(predictionBar: self, didSelectPrediction: label.text!)
         }
     }
 }
