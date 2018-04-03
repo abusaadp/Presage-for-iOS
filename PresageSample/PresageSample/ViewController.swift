@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate, PredictionBarDelega
     override func viewDidLoad() {
         txtField.delegate = self
         bar = PredictionBar.init()
+        bar.delegate = self
         self.view.addSubview(bar)
         predictor = ObjCPresageHelper()
         
@@ -32,7 +33,6 @@ class ViewController: UIViewController, UITextFieldDelegate, PredictionBarDelega
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var suggestions: NSArray
         suggestions = predictor!.getSuggesstionsForWord(textField.text!+string)! as NSArray
-        _ = textField.text?.components(separatedBy: " ")
         bar.setPredictions(predictions: suggestions)
         return true;
     }
@@ -75,8 +75,17 @@ class ViewController: UIViewController, UITextFieldDelegate, PredictionBarDelega
     }
     
     func predictionBar(predictionBar: PredictionBar, didSelectPrediction: String) {
-        let myStringWithoutLastWord = txtField.text?.components(separatedBy: " ").dropLast().joined(separator: " ")
-        txtField.text = myStringWithoutLastWord! + " " + didSelectPrediction
+        
+        if txtField.text?.last == " " {
+            txtField.text = txtField.text! + " " + didSelectPrediction + " "
+        } else {
+            let myStringWithoutLastWord = txtField.text?.components(separatedBy: " ").dropLast().joined(separator: " ")
+            txtField.text = myStringWithoutLastWord! + " " + didSelectPrediction + " "
+        }
+        
+        var suggestions: NSArray
+        suggestions = predictor!.getSuggesstionsForWord(txtField.text!)! as NSArray
+        bar.setPredictions(predictions: suggestions)
     }
 
 }
