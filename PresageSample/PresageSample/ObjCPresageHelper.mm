@@ -36,12 +36,32 @@ private:
 @implementation ObjCPresageHelper {
 NSString *context;
 }
+
+- (void)createAndCheckDatabase:(NSString *) filePath
+{
+    BOOL success;
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    success = [fileManager fileExistsAtPath:filePath];
+    
+    if (success) return;
+    
+    NSString *filePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"db"];
+    
+    [fileManager copyItemAtPath:filePathFromApp toPath:filePath error:nil];
+}
+
 - (id)init
 {
     self = [super init];
     if (self) {
+        NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentDir = [documentPaths objectAtIndex:0];
+        NSString *dictPath = [documentDir stringByAppendingPathComponent:@"db"];
+        
+        [self createAndCheckDatabase:dictPath];
+        
         context = @"sample";
-        NSString *dictPath = [[NSBundle mainBundle] pathForResource:@"db" ofType:nil];
         _callback = new ExampleCallback (context.UTF8String,dictPath.UTF8String);
         _presage = new Presage(_callback);
     }
