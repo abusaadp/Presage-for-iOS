@@ -62,7 +62,7 @@ void DefaultProfile::build_xml_document (const std::string& filename)
 "        <!-- LOWERCASE_MODE"
 "          Instruct context tracker to track text as lowercase"
 "        -->"
-"         <LOWERCASE_MODE>yes</LOWERCASE_MODE>"
+"         <LOWERCASE_MODE>no</LOWERCASE_MODE>"
 "         <ONLINE_LEARNING>yes</ONLINE_LEARNING>"
 "    </ContextTracker>"
 "    <Selector>"

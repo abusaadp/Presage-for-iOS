@@ -200,6 +200,7 @@ unsigned int SmoothedNgramPredictor::count(const std::vector<std::string>& token
 
 Prediction SmoothedNgramPredictor::predict(const size_t max_partial_prediction_size, const char** filter) const
 {
+    std::vector<double> lDeltas = deltas;
     logger << DEBUG << "predict()" << endl;
 
     // Result prediction
@@ -214,7 +215,10 @@ Prediction SmoothedNgramPredictor::predict(const size_t max_partial_prediction_s
 	tokens[cardinality - 1 - i] = contextTracker->getToken(i);
 	logger << DEBUG << "Cached tokens[" << cardinality - 1 - i << "] = " << tokens[cardinality - 1 - i] << endl;
     }
-
+    
+    if (tokens[cardinality-1] == "")
+        lDeltas[0] = 0;
+ 
     // Generate list of prefix completition candidates.
     //
     // The prefix completion candidates used to be obtained from the
@@ -313,12 +317,12 @@ Prediction SmoothedNgramPredictor::predict(const size_t max_partial_prediction_s
 	    // reuse cached unigrams_counts_sum to speed things up
 	    double denominator = (k == 0 ? unigrams_counts_sum : count(tokens, -1, k));
 	    double frequency = ((denominator > 0) ? (numerator / denominator) : 0);
-	    probability += deltas[k] * frequency;
+	    probability += lDeltas[k] * frequency;
 
 	    logger << DEBUG << "numerator:   " << numerator << endl;
 	    logger << DEBUG << "denominator: " << denominator << endl;
 	    logger << DEBUG << "frequency:   " << frequency << endl;
-	    logger << DEBUG << "delta:       " << deltas[k] << endl;
+	    logger << DEBUG << "delta:       " << lDeltas[k] << endl;
 
             // for some sanity checks
 	    assert(numerator <= denominator);
